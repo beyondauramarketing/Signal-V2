@@ -24,6 +24,7 @@
     "express": "^4.21.2",
     "framer-motion": "^12.42.2",
     "helmet": "^8.3.0",
+    "i18next": "^26.3.6",
     "jspdf": "^4.2.1",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
@@ -32,6 +33,7 @@
     "react-dom": "^19.0.1",
     "react-hook-form": "^7.80.0",
     "react-hot-toast": "^2.6.0",
+    "react-i18next": "^17.0.10",
     "react-router-dom": "^7.18.1",
     "vite": "^6.2.3",
     "zod": "^4.4.3"
@@ -49,5 +51,6 @@
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.3"
-  }
+  },
+  "favicon": "/logo.png"
 }

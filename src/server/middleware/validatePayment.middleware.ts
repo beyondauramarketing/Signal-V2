@@ -1,21 +1,22 @@
 import { Request, Response, NextFunction } from "express";
+import { PlanType, PLAN_AMOUNTS } from "../../plans/subscription";
 
 /**
- * Server-authoritative plan price map (INR paise).
- * 100 paise = ₹1. Never trust client-supplied amounts.
+ * Server-authoritative plan price map (USD cents).
+ * 100 cents = $1. Never trust client-supplied amounts.
  *
  * This is the SINGLE source of truth for what each plan costs.
  * To change pricing, update this map — no frontend changes required.
  */
-export const PLAN_PRICES_INR: Record<string, number> = {
-  guard_monthly:   49900,    // ₹499/month
-  guard_annual:    490000,   // ₹4,900/year
-  shield_monthly:  129900,   // ₹1,299/month
-  shield_annual:   1290000   // ₹12,900/year
+export const PLAN_PRICES_USD: Record<string, number> = {
+  [PlanType.GUARD_MONTHLY]: PLAN_AMOUNTS[PlanType.GUARD_MONTHLY],
+  [PlanType.GUARD_ANNUAL]:  PLAN_AMOUNTS[PlanType.GUARD_ANNUAL],
+  [PlanType.SHIELD_MONTHLY]: PLAN_AMOUNTS[PlanType.SHIELD_MONTHLY],
+  [PlanType.SHIELD_ANNUAL]:  PLAN_AMOUNTS[PlanType.SHIELD_ANNUAL]
 };
 
 /** Valid plan identifiers accepted from the frontend */
-export const VALID_PLANS = new Set(Object.keys(PLAN_PRICES_INR));
+export const VALID_PLANS = new Set(Object.keys(PLAN_PRICES_USD));
 
 /** Valid billing cycles accepted from the frontend */
 export const VALID_CYCLES = new Set(["monthly", "yearly", "annual"]);

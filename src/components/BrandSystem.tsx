@@ -270,7 +270,7 @@ export function AppIconConceptShowcase() {
                       >
                         <div className="flex items-center gap-2">
                           <div
-                            className="w-4 h-4 rounded border border-slate-250 dark:border-slate-800 shrink-0"
+                            className="w-4 h-4 rounded border border-slate-200 dark:border-slate-800 shrink-0"
                             style={{ backgroundColor: color.hex }}
                           />
                           <div>

@@ -207,7 +207,7 @@ export function HistoryScreen({
                   <span className="text-[10px] font-mono font-extrabold text-orange-500">{averageRisk}% avg risk</span>
                 </div>
                 
-                <div className="h-24 w-full bg-slate-950/20 dark:bg-slate-955/40 rounded-xl p-2.5 border border-slate-200/40 dark:border-slate-900/60 relative flex items-center justify-center">
+                <div className="h-24 w-full bg-slate-950/20 dark:bg-slate-900/40 rounded-xl p-2.5 border border-slate-200/40 dark:border-slate-900/60 relative flex items-center justify-center">
                   {history.length > 0 ? (
                     (() => {
                       const chronologicalHistory = [...history].reverse();
@@ -269,7 +269,7 @@ export function HistoryScreen({
                   <div className="absolute bottom-1 left-2 text-[7.5px] font-mono text-slate-400 select-none">Past Analyses</div>
                   <div className="absolute top-1 right-2 text-[7.5px] font-mono text-slate-400 select-none">Risk limit (100)</div>
                 </div>
-                <p className="text-[9.5px] text-slate-455 font-mono leading-normal text-left">
+                <p className="text-[9.5px] text-slate-400 font-mono leading-normal text-left">
                   → Plots overall risk levels. A rising wave indicates eroding dialogue boundaries.
                 </p>
               </div>
@@ -309,7 +309,7 @@ export function HistoryScreen({
                     });
                   })()}
                 </div>
-                <p className="text-[9.5px] text-slate-455 font-mono leading-normal text-left">
+                <p className="text-[9.5px] text-slate-400 font-mono leading-normal text-left">
                   → Highlights who asserts pressure most frequently. Use to protect high-impact connections.
                 </p>
               </div>
@@ -387,7 +387,7 @@ export function HistoryScreen({
                         </span>
                         <span className="text-[10px] text-slate-400 font-mono">/100</span>
                       </div>
-                      <span className="text-[8px] font-mono text-slate-455 block uppercase tracking-wide">risk score</span>
+                      <span className="text-[8px] font-mono text-slate-400 block uppercase tracking-wide">risk score</span>
                     </div>
 
                     <button

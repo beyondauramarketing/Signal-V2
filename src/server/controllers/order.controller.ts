@@ -2,7 +2,7 @@ import { Response } from "express";
 import { AuthenticatedRequest } from "../middleware/auth.middleware";
 import { supabaseAdmin, isSupabaseConfiguredBackend } from "../utils/supabase";
 import { logEvent } from "../utils/logger";
-import { PLAN_PRICES_INR } from "../middleware/validatePayment.middleware";
+import { PLAN_PRICES_USD } from "../middleware/validatePayment.middleware";
 import { PaymentStatus } from "../utils/paymentStates";
 import crypto from "crypto";
 
@@ -22,12 +22,12 @@ export async function createOrder(req: AuthenticatedRequest, res: Response) {
 
   // planType already validated by validateCreateOrder middleware
   // amount has already been stripped from req.body by the middleware
-  const { planType, currency = "INR" } = req.body;
+  const { planType, currency = "USD" } = req.body;
 
   // ── Step 1: Derive authoritative amount from the server-side price map ──────
-  const amountPaise = PLAN_PRICES_INR[planType];
+  const amountCents = PLAN_PRICES_USD[planType];
   // (middleware guarantees planType exists in the map, but be defensive)
-  if (!amountPaise) {
+  if (!amountCents) {
     return res.status(400).json({ error: `Unknown planType: "${planType}".` });
   }
 
@@ -36,7 +36,7 @@ export async function createOrder(req: AuthenticatedRequest, res: Response) {
   const hasRazorpayConfig = !!keyId && !!keySecret && keySecret !== "placeholder-secret";
 
   let rzpOrderId: string   = `order_mock_${Date.now()}`;
-  let orderAmount: number  = amountPaise;
+  let orderAmount: number  = amountCents;
   let orderCurrency: string = currency;
 
   // ── Step 2: Create the order with Razorpay API ───────────────────────────────
@@ -46,7 +46,7 @@ export async function createOrder(req: AuthenticatedRequest, res: Response) {
       const razorpay = new Razorpay({ key_id: keyId!, key_secret: keySecret! });
 
       const order = await (razorpay.orders.create as any)({
-        amount:   amountPaise,
+        amount:   amountCents,
         currency,
         receipt:  `rcpt_${userId.slice(0, 8)}_${Date.now()}`,
         notes: { userId, userEmail, planType }

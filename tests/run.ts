@@ -3,6 +3,7 @@ import { runPaymentTests } from "./payment.test";
 import { runAnalysisTests } from "./analysis.test";
 import { runHistoryTests } from "./history.test";
 import { runPricingConsistencyTests } from "./pricing-consistency.test";
+import { runRateLimiterTests } from "./rateLimiter.test";
 
 async function main() {
   console.log("==========================================");
@@ -11,6 +12,7 @@ async function main() {
 
   try {
     await runPricingConsistencyTests();
+    await runRateLimiterTests();
     await runAuthTests();
     await runPaymentTests();
     await runAnalysisTests();

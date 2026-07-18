@@ -6,12 +6,24 @@ import { GoogleGenAI } from "@google/genai";
 const apiKey = process.env.GEMINI_API_KEY!;
 const ai = new GoogleGenAI({ apiKey });
 
+import { Type } from "@google/genai";
+
 async function testModel(modelName: string) {
-  console.log(`Testing ${modelName}...`);
+  console.log(`Testing ${modelName} with JSON schema...`);
   try {
     const response = await ai.models.generateContent({
       model: modelName,
-      contents: "Hello, reply with exactly the word 'SUCCESS' if you read this.",
+      contents: "Hello, reply with a JSON object containing key 'status' set to 'SUCCESS'.",
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.OBJECT,
+          required: ["status"],
+          properties: {
+            status: { type: Type.STRING }
+          }
+        }
+      }
     });
     console.log(`✅ Success with ${modelName}:`, response.text?.trim());
     return true;
@@ -23,8 +35,10 @@ async function testModel(modelName: string) {
 
 async function main() {
   const models = [
-    "gemini-3.5-flash",
-    "gemini-3.1-pro-preview",
+    "gemini-2.0-flash-lite",
+    "gemini-2.0-flash-lite-001",
+    "gemini-flash-lite-latest",
+    "gemini-pro-latest",
     "gemini-3.1-flash-lite"
   ];
   for (const m of models) {

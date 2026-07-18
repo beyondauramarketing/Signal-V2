@@ -357,10 +357,11 @@ export async function restoreSubscription(req: AuthenticatedRequest, res: Respon
 
       // Fallback: Check amount if not resolved from plan_id
       if (planType === "sniff") {
-        if (activeSub.amount === PLAN_AMOUNTS.shield_annual) planType = "shield_annual";
-        else if (activeSub.amount === PLAN_AMOUNTS.shield_monthly) planType = "shield_monthly";
-        else if (activeSub.amount === PLAN_AMOUNTS.guard_annual) planType = "guard_annual";
-        else if (activeSub.amount === PLAN_AMOUNTS.guard_monthly) planType = "guard_monthly";
+        const amt = activeSub.amount >= 10000 ? activeSub.amount / 100 : activeSub.amount;
+        if (amt === PLAN_AMOUNTS.shield_annual) planType = "shield_annual";
+        else if (amt === PLAN_AMOUNTS.shield_monthly) planType = "shield_monthly";
+        else if (amt === PLAN_AMOUNTS.guard_annual) planType = "guard_annual";
+        else if (amt === PLAN_AMOUNTS.guard_monthly) planType = "guard_monthly";
       }
       
       await supabaseAdmin

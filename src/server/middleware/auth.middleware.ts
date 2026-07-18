@@ -18,7 +18,9 @@ export async function requireAuth(req: AuthenticatedRequest, res: Response, next
 
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Missing or invalid authorization header" });
+    // Guest access fallback when no token is present
+    req.user = { id: "00000000-0000-0000-0000-000000000000", email: null, isAdmin: false, plan: "sniff" };
+    return next();
   }
 
   const token = authHeader.split(" ")[1];

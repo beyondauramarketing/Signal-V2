@@ -11,3 +11,33 @@ body {
   background-color: #f8fafc;
   color: #0f172a;
 }
+
+.favicon-blend {
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 0 8px rgba(242, 122, 26, 0.4));
+}
+
+.favicon-blend-light {
+  mix-blend-mode: multiply !important;
+  filter: drop-shadow(0 0 8px rgba(242, 122, 26, 0.4)) !important;
+}
+
+html.dark .favicon-blend,
+.dark .favicon-blend {
+  mix-blend-mode: screen;
+}
+
+html.dark .favicon-blend-light,
+.dark .favicon-blend-light {
+  mix-blend-mode: multiply !important;
+}
+
+.favicon-blend-dark {
+  mix-blend-mode: screen !important;
+  filter: drop-shadow(0 0 8px rgba(242, 122, 26, 0.4)) !important;
+}
+
+html.dark .favicon-blend-dark,
+.dark .favicon-blend-dark {
+  mix-blend-mode: screen !important;
+}

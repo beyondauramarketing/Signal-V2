@@ -53,7 +53,7 @@ export function SummaryCard({ theme, result }: SummaryCardProps) {
               <div 
                 key={idx} 
                 className={`p-4 rounded-xl border text-xs space-y-2.5 transition-all duration-150 ${
-                  theme === "dark" ? "bg-slate-955/40 border-slate-850/60" : "bg-slate-55 border-slate-200 shadow-3xs"
+                  theme === "dark" ? "bg-slate-900/40 border-slate-800/60" : "bg-slate-50 border-slate-200 shadow-3xs"
                 }`}
               >
                 <div className="flex items-center justify-between">

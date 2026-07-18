@@ -19,6 +19,7 @@ export interface EntitlementPayload {
     analysesToday: number;
     packCreditsRemaining: number;
   };
+  mockPaymentsAllowed?: boolean;
 }
 
 interface AuthContextType {

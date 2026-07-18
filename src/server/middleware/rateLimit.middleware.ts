@@ -7,7 +7,9 @@ export function rateLimiter(limit: number, windowMs: number) {
   return (req: Request, res: Response, next: NextFunction) => {
     const ip = req.ip || req.headers["x-forwarded-for"] || "unknown";
     const now = Date.now();
-    const key = Array.isArray(ip) ? ip[0] : ip;
+    const cleanIp = Array.isArray(ip) ? ip[0] : ip;
+    // Prefix key with route base and path to prevent collisions between endpoints
+    const key = `${req.baseUrl || ""}${req.path}:${cleanIp}`;
     const userLimit = rateLimits.get(key);
     
     if (!userLimit || now > userLimit.resetTime) {

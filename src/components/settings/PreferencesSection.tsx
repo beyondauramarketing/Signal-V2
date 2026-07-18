@@ -30,7 +30,7 @@ export function PreferencesSection({
       <div className={`p-6 rounded-2xl space-y-5 ${bgCardClass}`}>
         <div className="flex items-center gap-2 pb-3.5 border-b border-slate-200 dark:border-slate-800">
           <Sliders className="w-4.5 h-4.5 text-orange-500" />
-          <h3 className="text-xs font-sans font-bold tracking-wider uppercase text-slate-805 dark:text-slate-200">
+          <h3 className="text-xs font-sans font-bold tracking-wider uppercase text-slate-800 dark:text-slate-200">
             Personal Preferences
           </h3>
         </div>
@@ -86,7 +86,7 @@ export function PreferencesSection({
       <div className={`p-6 rounded-2xl space-y-4 ${bgCardClass}`} id="notification_channel_settings">
         <div className="flex items-center gap-2 pb-3.5 border-b border-slate-200 dark:border-slate-800">
           <Bell className="w-4.5 h-4.5 text-orange-500" />
-          <h3 className="text-xs font-sans font-bold tracking-wider uppercase text-slate-805 dark:text-slate-200">
+          <h3 className="text-xs font-sans font-bold tracking-wider uppercase text-slate-800 dark:text-slate-200">
             Advisories & Alerts
           </h3>
         </div>

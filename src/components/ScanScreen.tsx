@@ -159,7 +159,7 @@ export function ScanScreen({
         theme === "dark" ? "bg-slate-900/40 border-slate-800/80" : "bg-slate-50 border-slate-200"
       }`}>
         <Info className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
-        <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-455">
+        <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
           <strong>Private by default:</strong> Your message text is analyzed securely on the server and is never stored, tracked, or shared.
         </p>
       </div>
@@ -217,7 +217,7 @@ export function ScanScreen({
 
                   {/* Empty state bottom overlay - reassuring user with safety claims */}
                   {!messageText.trim() && !isAnalyzing && (
-                    <div className="absolute bottom-4 right-4 pointer-events-none text-[9.5px] font-mono text-slate-455 flex items-center gap-1.5 bg-slate-200/55 dark:bg-slate-950/60 px-2.5 py-1.5 rounded-lg backdrop-blur-md select-none border border-slate-250 dark:border-slate-900/60 transition-opacity">
+                    <div className="absolute bottom-4 right-4 pointer-events-none text-[9.5px] font-mono text-slate-400 flex items-center gap-1.5 bg-slate-200/55 dark:bg-slate-950/60 px-2.5 py-1.5 rounded-lg backdrop-blur-md select-none border border-slate-200 dark:border-slate-900/60 transition-opacity">
                       <Lock className="w-3.5 h-3.5 text-slate-400" />
                       <span>Private analysis</span>
                     </div>
@@ -303,7 +303,7 @@ export function ScanScreen({
                   <span>Analyze message</span>
                 </button>
                 
-                <div className="flex items-center justify-center gap-2 text-[10px] font-mono text-slate-455 select-none">
+                <div className="flex items-center justify-center gap-2 text-[10px] font-mono text-slate-400 select-none">
                   <Lock className="w-3.5 h-3.5 text-emerald-500" />
                   <span>Private analysis • Messages are analyzed securely and never saved on external hosts</span>
                 </div>
@@ -348,7 +348,7 @@ export function ScanScreen({
                       Try
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-455 dark:text-slate-400 leading-relaxed italic line-clamp-2 pr-2">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed italic line-clamp-2 pr-2">
                     "{chip.text}"
                   </p>
                 </button>

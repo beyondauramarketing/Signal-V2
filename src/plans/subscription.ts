@@ -87,7 +87,7 @@ const guardFeatures: Record<FeatureKey, boolean> = {
 
 const guardLimits = {
   "analysis.daily": 50,
-  "analysis.monthly": 3000,
+  "analysis.monthly": 300,
   "cloud_history.saved": 500,
   "exports.monthly": 50,
   "premium_scenarios.monthly": 20
@@ -113,10 +113,10 @@ const shieldFeatures: Record<FeatureKey, boolean> = {
 
 const shieldLimits = {
   "analysis.daily": 200,
-  "analysis.monthly": Infinity,
-  "cloud_history.saved": Infinity,
-  "exports.monthly": Infinity,
-  "premium_scenarios.monthly": Infinity
+  "analysis.monthly": 1500,
+  "cloud_history.saved": 5000,
+  "exports.monthly": 500,
+  "premium_scenarios.monthly": 200
 };
 
 export const PLAN_ENTITLEMENTS: Record<PlanType, Entitlements> = {

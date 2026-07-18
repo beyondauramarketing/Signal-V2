@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { SystemNotification } from "../types";
 import { UserProfile, PlanType } from "../plans/subscription";
+import { useTranslation } from "react-i18next";
 
 interface NavbarProps {
   theme: "light" | "dark";
@@ -59,6 +60,7 @@ export function Navbar({
   usageLimit
 }: NavbarProps) {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
@@ -81,15 +83,15 @@ export function Navbar({
 
   // Grouped logically: Marketing/Discover links vs Core Utility App Tasks
   const marketingTabs = [
-    { id: "landing", label: "Product" },
-    { id: "how-it-works", label: "How it works" }
+    { id: "landing", label: t("nav.product") },
+    { id: "how-it-works", label: t("nav.howItWorks") }
   ];
 
   const appTabs = [
-    { id: "workspace", label: "Analyze message" },
-    { id: "history", label: "History" },
-    { id: "notifications", label: "Notifications" },
-    { id: "settings", label: "Settings" }
+    { id: "workspace", label: t("nav.analyzeMessage") },
+    { id: "history", label: t("nav.history") },
+    { id: "notifications", label: t("nav.notifications") },
+    { id: "settings", label: t("nav.settings") }
   ];
 
   const textTitleClass = theme === "dark" ? "text-slate-100" : "text-slate-900";
@@ -209,6 +211,20 @@ export function Navbar({
             </button>
           )}
 
+          {/* Language Toggle option */}
+          <button
+            onClick={() => i18n.changeLanguage(i18n.language === "en" ? "hi" : "en")}
+            className={`p-2 rounded-xl border transition-colors cursor-pointer ${
+              theme === "dark"
+                ? "bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-850"
+                : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 shadow-3xs"
+            }`}
+            title={t("nav.toggleLanguage")}
+            id="language_controller"
+          >
+            <span className="text-[10px] font-semibold uppercase">{i18n.language === "en" ? "हिं" : "EN"}</span>
+          </button>
+
           {/* Theme Toggle option */}
           <button
             onClick={toggleTheme}
@@ -238,7 +254,7 @@ export function Navbar({
                   ? "bg-slate-900 border-slate-800 text-slate-350 hover:bg-slate-850" 
                   : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 shadow-3xs"
               }`}
-              title="Profile / Sign In"
+              title={t("nav.profile")}
             >
               {user ? (
                 <div className="flex items-center gap-1.5">
@@ -252,7 +268,7 @@ export function Navbar({
               ) : (
                 <div className="flex items-center gap-1.5">
                   <User className="w-3.5 h-3.5 text-orange-500" />
-                  <span className="text-[10px] font-sans font-bold hidden lg:inline">Sign In</span>
+                  <span className="text-[10px] font-sans font-bold hidden lg:inline">{t("nav.signIn")}</span>
                 </div>
               )}
             </button>

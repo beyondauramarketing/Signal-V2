@@ -70,7 +70,7 @@ export function RiskCard({ theme, result }: RiskCardProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left space-y-2 border-b lg:border-b-0 lg:border-r border-slate-200/60 dark:border-slate-800/80 pb-6 lg:pb-0 lg:pr-8">
-            <span className="text-xs font-semibold text-slate-550 dark:text-slate-400 font-sans">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 font-sans">
               Risk level
             </span>
             <div className="flex items-baseline gap-0.5">
@@ -109,10 +109,10 @@ export function RiskCard({ theme, result }: RiskCardProps) {
 
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-6 pl-0 lg:pl-3">
             <div className="space-y-1.5">
-              <span className="text-xs font-semibold text-slate-550 dark:text-slate-400 block pb-0.5 font-sans">
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block pb-0.5 font-sans">
                 Confidence
               </span>
-              <p className="text-sm font-bold text-slate-855 dark:text-slate-100 flex items-center gap-1.5 font-sans">
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5 font-sans">
                 <span className={`w-1.5 h-1.5 rounded-full ${
                   result.calculationConfidence === "HIGH" ? "bg-emerald-500" : result.calculationConfidence === "MEDIUM" ? "bg-amber-500" : "bg-slate-400"
                 }`} />
@@ -124,10 +124,10 @@ export function RiskCard({ theme, result }: RiskCardProps) {
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-xs font-semibold text-slate-550 dark:text-slate-400 block pb-0.5 font-sans">
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block pb-0.5 font-sans">
                 Clarity
               </span>
-              <p className="text-sm font-bold text-slate-855 dark:text-slate-100 flex items-center gap-1 font-sans">
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1 font-sans">
                 <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                 {result.transparencyProbability}%
               </p>
@@ -137,10 +137,10 @@ export function RiskCard({ theme, result }: RiskCardProps) {
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-xs font-semibold text-slate-550 dark:text-slate-400 block pb-0.5 font-sans">
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block pb-0.5 font-sans">
                 Context
               </span>
-              <p className="text-sm font-bold text-slate-855 dark:text-slate-100 truncate font-sans" title={result.contextDetected}>
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate font-sans" title={result.contextDetected}>
                 {result.contextDetected || "General"}
               </p>
               <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans block leading-none">
@@ -149,10 +149,10 @@ export function RiskCard({ theme, result }: RiskCardProps) {
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-xs font-semibold text-slate-550 dark:text-slate-400 block pb-0.5 font-sans">
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block pb-0.5 font-sans">
                 Affected side
               </span>
-              <p className="text-sm font-bold text-slate-855 dark:text-slate-100 truncate font-sans" title={result.strategicScanTarget}>
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate font-sans" title={result.strategicScanTarget}>
                 {result.strategicScanTarget || "Recipient"}
               </p>
               <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans block leading-none">
@@ -191,13 +191,13 @@ export function RiskCard({ theme, result }: RiskCardProps) {
               return (
                 <div key={key} className="space-y-1">
                   <div className="flex justify-between items-center text-[11px] font-sans">
-                    <span className="text-slate-655 dark:text-slate-350 font-medium">{label}</span>
+                    <span className="text-slate-600 dark:text-slate-300 font-medium">{label}</span>
                     <span className="text-slate-500 font-semibold shrink-0 font-mono">
                       {val} <span className="opacity-50 text-[9px]">/ {maxVal}</span>
                     </span>
                   </div>
                   
-                  <div className="w-full h-1.5 bg-slate-250 dark:bg-slate-900 rounded-full overflow-hidden">
+                  <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-900 rounded-full overflow-hidden">
                     <motion.div 
                       className="h-full rounded-full"
                       style={{ backgroundColor: percentage > 70 ? "#ef4444" : percentage > 45 ? "#f59e0b" : "#f97316" }}

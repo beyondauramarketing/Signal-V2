@@ -15,6 +15,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { DogeshLogo } from "./BrandSystem";
+import { useTranslation } from "react-i18next";
 
 interface LandingScreenProps {
   theme: "light" | "dark";
@@ -23,14 +24,15 @@ interface LandingScreenProps {
 }
 
 const USE_CASES = [
-  { label: "Recruiter offers", icon: <Users className="w-4 h-4 text-slate-500 dark:text-slate-400" /> },
-  { label: "Landlord requests", icon: <Building className="w-4 h-4 text-slate-500 dark:text-slate-400" /> },
-  { label: "Freelance client terms", icon: <Briefcase className="w-4 h-4 text-slate-500 dark:text-slate-400" /> },
-  { label: "Marketplace listings", icon: <ShoppingCart className="w-4 h-4 text-slate-500 dark:text-slate-400" /> },
-  { label: "Personal agreements", icon: <MessageSquare className="w-4 h-4 text-slate-500 dark:text-slate-400" /> }
+  { labelKey: "landing.useCases.recruiter", icon: <Users className="w-4 h-4 text-slate-500 dark:text-slate-400" /> },
+  { labelKey: "landing.useCases.landlord", icon: <Building className="w-4 h-4 text-slate-500 dark:text-slate-400" /> },
+  { labelKey: "landing.useCases.freelance", icon: <Briefcase className="w-4 h-4 text-slate-500 dark:text-slate-400" /> },
+  { labelKey: "landing.useCases.marketplace", icon: <ShoppingCart className="w-4 h-4 text-slate-500 dark:text-slate-400" /> },
+  { labelKey: "landing.useCases.personal", icon: <MessageSquare className="w-4 h-4 text-slate-500 dark:text-slate-400" /> }
 ];
 
 export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingScreenProps) {
+  const { t } = useTranslation();
   const [activeTone, setActiveTone] = useState<"Professional" | "Direct">("Professional");
   const [copiedReview, setCopiedReview] = useState(false);
 
@@ -70,11 +72,16 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
         {/* Left Side: Copy & Actions */}
         <div className="lg:col-span-6 space-y-6">
           <h1 className={`text-4xl sm:text-5xl lg:text-6.5xl font-extrabold tracking-tight leading-[1.1] ${textTitleClass}`}>
-            Understand the <span className="text-orange-500">pressure</span> in a message.
+            {t("landing.heroTitle").split("pressure").map((part, index, arr) => (
+              <React.Fragment key={index}>
+                {part}
+                {index < arr.length - 1 ? <span className="text-orange-500">pressure</span> : null}
+              </React.Fragment>
+            ))}
           </h1>
 
           <p className={`text-base sm:text-lg leading-relaxed max-w-xl font-sans ${textMutedClass}`}>
-            Paste a message to spot red flags, understand what feels off, and get a safer reply you can actually send. Protect your boundaries without the usual anxiety.
+            {t("landing.heroSubtitle")}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-3.5 pt-2">
@@ -83,7 +90,7 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
               className="w-full sm:w-auto px-6 py-3.5 bg-orange-500 hover:bg-orange-600 hover:scale-[1.01] active:scale-[0.99] text-slate-950 font-semibold text-xs rounded-xl shadow-md cursor-pointer transition-all flex items-center justify-center gap-2 border-none"
               id="hero_btn_scan"
             >
-              <span>Analyze a message</span>
+              <span>{t("landing.analyzeButton")}</span>
               <ArrowRight className="w-4 h-4 text-slate-950" />
             </button>
 
@@ -96,13 +103,13 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
               }`}
               id="hero_btn_example"
             >
-              <span>Try an example</span>
+              <span>{t("landing.exampleButton")}</span>
             </button>
           </div>
 
           <p className="text-[11px] text-slate-500 dark:text-slate-500 flex items-center gap-1.5 select-none font-sans">
             <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
-            <span>Private by default. No login required.</span>
+            <span>{t("landing.privacyNote")}</span>
           </p>
         </div>
 
@@ -113,10 +120,10 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
             {/* Top Bar showing example analysis */}
             <div className="flex items-center justify-between pb-3.5 border-b border-slate-200 dark:border-slate-800/60 mb-4 select-none">
               <span className="text-xs font-semibold text-slate-400">
-                Example analysis
+                {t("landing.exampleAnalysis")}
               </span>
               <div className="flex items-center gap-1.5">
-                <span className="text-xs text-slate-400 font-sans">Risk level:</span>
+                <span className="text-xs text-slate-400 font-sans">{t("landing.riskLevel")}: </span>
                 <span className="text-xs font-semibold text-rose-500">75% — High risk</span>
               </div>
             </div>
@@ -124,7 +131,7 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
             {/* Why it feels off */}
             <div className="space-y-1.5 mb-4 text-left">
               <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-tight block">
-                Why it feels off
+                {t("landing.whyItFeelsOff")}
               </span>
               <p className={`text-xs leading-relaxed ${textMutedClass}`}>
                 The message ties extra work to pending payment and uses urgency to make it harder to say no.
@@ -134,7 +141,7 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
             {/* Suggested reply preview */}
             <div className="space-y-3 pt-2 text-left">
               <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-tight block">
-                Suggested reply
+                {t("landing.suggestedReply")}
               </span>
 
               {/* Tone Selection Tabs */}
@@ -146,7 +153,7 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
                     className={`flex-1 py-1 rounded-md text-center transition-all cursor-pointer font-medium ${
                       activeTone === tone 
                         ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-semibold shadow-sm border border-slate-200 dark:border-slate-800/80" 
-                        : "text-slate-550 hover:text-slate-900 dark:hover:text-slate-200"
+                        : "text-slate-500 hover:text-slate-900 dark:hover:text-slate-200"
                     }`}
                   >
                     {tone}
@@ -155,7 +162,7 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
               </div>
 
               {/* Reply copy box */}
-              <div className={`p-4 rounded-xl border border-slate-155 dark:border-slate-850 relative ${
+              <div className={`p-4 rounded-xl border border-slate-200 dark:border-slate-850 relative ${
                 theme === "dark" ? "bg-slate-950/60" : "bg-slate-50"
               }`}>
                 <p className={`text-[11.5px] leading-relaxed italic pr-8 font-sans ${
@@ -192,10 +199,10 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
       <div className="pt-8 border-t border-slate-100 dark:border-slate-900 space-y-4" id="use_case_strip">
         <div className="space-y-1">
           <h2 className={`text-xl font-extrabold tracking-tight ${textTitleClass}`}>
-            Where it helps
+            {t("landing.whereItHelps")}
           </h2>
           <p className={`text-xs sm:text-sm font-sans ${textMutedClass}`}>
-            Useful for work, housing, buying, selling, and personal conversations.
+            {t("landing.whereItHelpsSubtitle")}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5 pt-1">
@@ -211,7 +218,7 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
               <div className="p-1 shrink-0 bg-slate-500/5 dark:bg-slate-400/5 rounded-lg border border-slate-200/10 dark:border-slate-800">
                 {uc.icon}
               </div>
-              <span className="font-sans text-xs font-semibold leading-tight">{uc.label}</span>
+              <span className="font-sans text-xs font-semibold leading-tight">{t(uc.labelKey)}</span>
             </div>
           ))}
         </div>
@@ -221,10 +228,10 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
       <div className="pt-8 space-y-8" id="how_it_works_section">
         <div className="space-y-1">
           <h2 className={`text-xl font-extrabold tracking-tight ${textTitleClass}`}>
-            How it works
+            {t("landing.howItWorks")}
           </h2>
           <p className={`text-xs sm:text-sm font-sans ${textMutedClass}`}>
-            Paste the message, review the signals, and choose a reply that protects your boundaries.
+            {t("landing.howItWorksSubtitle")}
           </p>
         </div>
 
@@ -232,18 +239,18 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
           {[
             {
               step: "01",
-              title: "Paste the message",
-              desc: "Add a message, email, or chat that feels pushy, unclear, or off."
+              title: t("landing.steps.oneTitle"),
+              desc: t("landing.steps.oneDesc")
             },
             {
               step: "02",
-              title: "Review the signals",
-              desc: "See the pressure points, quoted evidence, and overall risk level."
+              title: t("landing.steps.twoTitle"),
+              desc: t("landing.steps.twoDesc")
             },
             {
               step: "03",
-              title: "Use a safer reply",
-              desc: "Start with a calmer draft and adjust the tone to fit the situation."
+              title: t("landing.steps.threeTitle"),
+              desc: t("landing.steps.threeDesc")
             }
           ].map((st, i) => (
             <div 
@@ -272,30 +279,30 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
       <div className="pt-8 space-y-6" id="trust_privacy_section">
         <div className="space-y-1">
           <h2 className={`text-xl font-extrabold tracking-tight ${textTitleClass}`}>
-            What you get
+            {t("landing.whatYouGet")}
           </h2>
           <p className={`text-xs sm:text-sm font-sans ${textMutedClass}`}>
-            Designed to bring objective clarity and confidence to uncomfortable digital threads.
+            {t("landing.whatYouGetSubtitle")}
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
-              title: "Risk level",
-              desc: "A calculated score from 0 to 100 identifying the intensity of the pressure."
+              title: t("landing.features.risk"),
+              desc: t("landing.features.riskDesc")
             },
             {
-              title: "Why it feels off",
-              desc: "An explanation of the underlying communication tricks or emotional traps."
+              title: t("landing.features.whyOff"),
+              desc: t("landing.features.whyOffDesc")
             },
             {
-              title: "Quoted evidence",
-              desc: "Specific highlighted text showing exactly where pressure is applied."
+              title: t("landing.features.evidence"),
+              desc: t("landing.features.evidenceDesc")
             },
             {
-              title: "Suggested reply",
-              desc: "Multiple tone options to reply firmly and clearly without escalating friction."
+              title: t("landing.features.reply"),
+              desc: t("landing.features.replyDesc")
             }
           ].map((item, idx) => (
             <div 
@@ -322,10 +329,10 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
       <div className="py-12 border-t border-slate-100 dark:border-slate-900 flex flex-col items-center text-center space-y-6" id="final_cta_section">
         <div className="space-y-2 max-w-xl mx-auto">
           <h2 className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${textTitleClass}`}>
-            See what the message is really asking from you.
+            {t("landing.finalCtaTitle")}
           </h2>
           <p className={`text-xs sm:text-sm font-sans leading-relaxed ${textMutedClass}`}>
-            Get a clearer read on pressure, boundaries, and reply options in a few seconds.
+            {t("landing.finalCtaSubtitle")}
           </p>
         </div>
 
@@ -345,12 +352,12 @@ export function LandingScreen({ theme, onLaunchScan, onLaunchExample }: LandingS
             Dogesh Signal
           </span>
           <p className="text-slate-400 dark:text-slate-500 text-xs">
-            Private message analysis with explainable feedback.
+            {t("landing.footerDescription")}
           </p>
         </div>
         
         <p className="text-[11px] leading-relaxed text-slate-400 dark:text-slate-500/80">
-          Results are guidance, not professional advice. suggestions represent communication recommendations; always make final judgments on transactions and contracts yourself. All content is processed securely and is never stored on a server.
+          {t("landing.footerNote")}
         </p>
       </footer>
 

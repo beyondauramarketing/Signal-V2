@@ -31,7 +31,7 @@ export function AccountSection({
     <div className={`p-6 rounded-2xl space-y-4.5 ${bgCardClass}`} id="account_sync_sub_card">
       <div className="flex items-center gap-2 pb-3.5 border-b border-slate-200 dark:border-slate-800">
         <User className="w-4.5 h-4.5 text-orange-500" />
-        <h3 className="text-xs font-sans font-bold tracking-wider uppercase text-slate-805 dark:text-slate-200">
+        <h3 className="text-xs font-sans font-bold tracking-wider uppercase text-slate-800 dark:text-slate-200">
           Account Profile & Usage
         </h3>
       </div>
@@ -105,7 +105,7 @@ export function AccountSection({
               <div className="flex gap-2 justify-end">
                 <button
                   onClick={onSkipImport}
-                  className="px-2.5 py-1 text-[9px] font-mono uppercase font-bold text-slate-400 hover:text-slate-305 bg-transparent border-none cursor-pointer"
+                  className="px-2.5 py-1 text-[9px] font-mono uppercase font-bold text-slate-400 hover:text-slate-300 bg-transparent border-none cursor-pointer"
                 >
                   Skip
                 </button>

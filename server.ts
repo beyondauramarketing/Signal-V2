@@ -15,6 +15,22 @@ validateEnvironment();
 
 const app = express();
 
+// ── Block sensitive config and dotfile access ────────────────────────────────
+app.use((req, res, next) => {
+  const urlPath = req.path.toLowerCase();
+  if (
+    urlPath.includes("/.env") ||
+    urlPath.includes("/package.json") ||
+    urlPath.includes("/tsconfig.json") ||
+    urlPath.includes("/supabase_schema.sql") ||
+    urlPath.split("/").some(part => part.startsWith(".") && part !== "" && part !== ".well-known")
+  ) {
+    logEvent("WARN", `Blocked access attempt to sensitive file: ${req.originalUrl}`, { ip: req.ip });
+    return res.status(403).json({ error: "Access denied. Sensitive file exposure is blocked." });
+  }
+  next();
+});
+
 // ── Security headers (helmet sets X-Frame-Options, CSP, HSTS, etc.) ──────────
 app.use(helmet({
   // Allow Razorpay checkout.js and our own scripts

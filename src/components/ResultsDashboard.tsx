@@ -52,7 +52,7 @@ export function ResultsDashboard({
           <span>Back to analyzer</span>
         </button>
 
-        <div className="flex items-center gap-2 text-xs font-sans text-slate-405 dark:text-slate-500">
+        <div className="flex items-center gap-2 text-xs font-sans text-slate-400 dark:text-slate-500">
           <Clock className="w-3.5 h-3.5" />
           <span>Private analysis</span>
         </div>
@@ -95,7 +95,7 @@ export function ResultsDashboard({
         id="card_reply_options"
       >
         <div className="space-y-1 font-sans">
-          <span className="text-xs font-semibold text-slate-550 dark:text-slate-400 block">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block">
             Actions
           </span>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-lg mx-auto">
@@ -110,8 +110,8 @@ export function ResultsDashboard({
               isAllCopied 
                 ? "border-emerald-500/20 text-emerald-500" 
                 : theme === "dark" 
-                ? "border-slate-800 text-slate-305 hover:text-slate-100 hover:bg-slate-850" 
-                : "border-slate-200 text-slate-600 hover:text-slate-955 hover:bg-slate-50"
+                ? "border-slate-800 text-slate-300 hover:text-slate-100 hover:bg-slate-850" 
+                : "border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
             }`}
           >
             {isAllCopied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
@@ -122,8 +122,8 @@ export function ResultsDashboard({
             onClick={handleExportPDF}
             className={`w-full sm:w-auto px-6 py-2.5 rounded-lg font-semibold text-xs cursor-pointer transition-all border shrink-0 flex items-center justify-center gap-1.5 bg-transparent duration-150 transform active:scale-98 ${
               theme === "dark" 
-                ? "border-slate-800 text-slate-305 hover:text-slate-100 hover:bg-slate-850" 
-                : "border-slate-200 text-slate-600 hover:text-slate-955 hover:bg-slate-50"
+                ? "border-slate-800 text-slate-300 hover:text-slate-100 hover:bg-slate-850" 
+                : "border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
             }`}
           >
             {entitlements.features["export.summary"] ? (
@@ -136,7 +136,7 @@ export function ResultsDashboard({
 
           <button
             onClick={onScanAnother}
-            className="w-full sm:w-auto px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-slate-955 font-sans font-semibold text-xs rounded-lg cursor-pointer transition-all duration-150 transform active:scale-98 hover:scale-[1.01] shadow-sm flex items-center justify-center gap-1.5 border-none"
+            className="w-full sm:w-auto px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-slate-950 font-sans font-semibold text-xs rounded-lg cursor-pointer transition-all duration-150 transform active:scale-98 hover:scale-[1.01] shadow-sm flex items-center justify-center gap-1.5 border-none"
           >
             <span>Analyze another message</span>
           </button>

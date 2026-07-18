@@ -3,6 +3,7 @@ import { supabaseAdmin, isSupabaseConfiguredBackend } from "../utils/supabase";
 import { logEvent } from "../utils/logger";
 import { PaymentStatus, WEBHOOK_EVENT_STATUS_MAP } from "../utils/paymentStates";
 import crypto from "crypto";
+import { PlanType, PLAN_IDS, PLAN_AMOUNTS } from "../../plans/subscription";
 
 export async function processWebhook(req: Request, res: Response) {
   const received_at = new Date().toISOString();
@@ -52,7 +53,7 @@ export async function processWebhook(req: Request, res: Response) {
     const subscriptionId  = subscription?.id || body.payload?.entity?.subscription_id || null;
     const paymentId       = payment?.id || body.payload?.entity?.id || null;
     const amount          = payment?.amount || subscription?.amount || 0;
-    const currency        = payment?.currency || subscription?.currency || "INR";
+    const currency        = payment?.currency || subscription?.currency || "USD";
 
     // Notes metadata injected during subscription/order creation
     const notes  = subscription?.notes || payment?.notes || {};
@@ -60,18 +61,20 @@ export async function processWebhook(req: Request, res: Response) {
 
     // Resolve plan from plan_id or amount fallback
     const planId       = subscription?.plan_id;
-    const PLAN_ID_MAP: Record<string, string> = {
-      "plan_guard_monthly_live_128938129": "guard_monthly",
-      "plan_guard_yearly_live_128938130":  "guard_annual",
-      "plan_shield_monthly_live_128938131": "shield_monthly",
-      "plan_shield_yearly_live_128938132": "shield_annual"
-    };
-    const AMOUNT_PLAN_MAP: Record<number, string> = {
-      49900:   "guard_monthly",
-      490000:  "guard_annual",
-      129900:  "shield_monthly",
-      1290000: "shield_annual"
-    };
+    const PLAN_ID_MAP: Record<string, string> = {};
+    for (const [pType, pId] of Object.entries(PLAN_IDS)) {
+      if (pId) {
+        PLAN_ID_MAP[pId] = pType;
+      }
+    }
+
+    const AMOUNT_PLAN_MAP: Record<number, string> = {};
+    for (const [pType, amt] of Object.entries(PLAN_AMOUNTS)) {
+      if (amt > 0) {
+        AMOUNT_PLAN_MAP[amt] = pType;
+        AMOUNT_PLAN_MAP[amt * 100] = pType;
+      }
+    }
 
     let planType =
       PLAN_ID_MAP[planId] ||

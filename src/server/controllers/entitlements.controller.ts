@@ -9,27 +9,6 @@ export async function getUserEntitlements(req: AuthenticatedRequest, res: Respon
     const userId = req.user.id;
     const userEmail = req.user.email;
 
-    // ── Admin / tester bypass ──────────────────────────────────────────────
-    // Admin accounts get shield_annual entitlements with no usage counted.
-    // No payment, no DB plan lookup required.
-    if (req.user.isAdmin) {
-      const entitlementData = PLAN_ENTITLEMENTS[PlanType.SHIELD_ANNUAL];
-      return res.json({
-        userId,
-        email: userEmail,
-        plan: PlanType.SHIELD_ANNUAL,
-        status: "ACTIVE",
-        isAdmin: true,
-        features: entitlementData.features,
-        limits: { ...entitlementData.limits, dailyAnalyses: 999999 },
-        usage: {
-          analysesToday: 0,
-          packCreditsRemaining: 999999,
-        },
-      });
-    }
-    // ──────────────────────────────────────────────────────────────────────
-
     let plan = "sniff";
     let status = "ACTIVE";
     let analysesToday = 0;
@@ -82,6 +61,30 @@ export async function getUserEntitlements(req: AuthenticatedRequest, res: Respon
       status = req.user.plan_status || "ACTIVE";
     }
 
+    // ── Admin / tester bypass ──────────────────────────────────────────────
+    // Admin accounts get shield_annual entitlements with their actual usage counted.
+    if (req.user.isAdmin) {
+      const entitlementData = PLAN_ENTITLEMENTS[PlanType.SHIELD_ANNUAL];
+      return res.json({
+        userId,
+        email: userEmail,
+        plan: PlanType.SHIELD_ANNUAL,
+        status: "ACTIVE",
+        isAdmin: true,
+        features: entitlementData.features,
+        limits: { 
+          ...entitlementData.limits, 
+          "analysis.daily": 999999 
+        },
+        usage: {
+          analysesToday,
+          packCreditsRemaining: 999999,
+        },
+        mockPaymentsAllowed: process.env.ALLOW_MOCK_PAYMENTS === "true"
+      });
+    }
+    // ──────────────────────────────────────────────────────────────────────
+
     const entitlementData = PLAN_ENTITLEMENTS[plan as PlanType] || PLAN_ENTITLEMENTS[PlanType.SNIFF];
 
     return res.json({
@@ -94,7 +97,8 @@ export async function getUserEntitlements(req: AuthenticatedRequest, res: Respon
       usage: {
         analysesToday,
         packCreditsRemaining
-      }
+      },
+      mockPaymentsAllowed: process.env.ALLOW_MOCK_PAYMENTS === "true"
     });
   } catch (err: any) {
     return res.status(500).json({ error: "Failed to resolve entitlements.", details: err.message });

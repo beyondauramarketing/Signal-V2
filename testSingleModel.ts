@@ -7,7 +7,7 @@ const apiKey = process.env.GEMINI_API_KEY!;
 const ai = new GoogleGenAI({ apiKey });
 
 async function main() {
-  const modelName = "gemini-3-pro-preview";
+  const modelName = "gemini-3.5-flash";
   console.log(`Testing ${modelName}...`);
   try {
     const response = await ai.models.generateContent({
